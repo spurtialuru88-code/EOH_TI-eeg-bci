@@ -24,10 +24,9 @@ class ThresholdClassifier:
         """
         Maps EEG value → action
         """
-
         if value > high:
-            return "F"   # FLEX
+            return "C"   # CLOSE hand (Fixed from "F")
         elif value < low:
-            return "R"   # REST
+            return "O"   # OPEN hand (Fixed from "R")
         else:
             return None  # DEAD ZONE

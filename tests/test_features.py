@@ -1,6 +1,6 @@
 import numpy as np
 from classifier import train_model
-from tests.utils_eeg import generate_eeg_signal
+from EOH_BCI.eoh_bci.utils.utils_eeg import generate_eeg_signal
 from features import extract_features
 from preprocessing import bandpass_filter, notch_filter
 
@@ -20,7 +20,7 @@ def test_features_are_finite():
 
 import numpy as np
 from preprocessing import bandpass_filter, notch_filter
-from tests.utils_eeg import generate_eeg_signal
+from EOH_BCI.eoh_bci.utils.utils_eeg import generate_eeg_signal
 
 def test_bandpass_preserves_signal_length():
     signal = generate_eeg_signal(freq=10)

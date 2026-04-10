@@ -2,7 +2,7 @@ import serial
 import time
 
 class ArduinoController:
-    def __init__(self, port="/dev/ttyUSB0", baud=9600):
+    def __init__(self, port="/dev/cu.usbserial-0001", baud=9600):
         self.ser = serial.Serial(port, baud, timeout=1)
         time.sleep(2)  # allow Arduino reset
 
@@ -17,7 +17,7 @@ class ArduinoController:
 
 
 class SerialController:
-    def __init__(self, port="/dev/tty.usbserial-0001", baud=115200):
+    def __init__(self, port="/dev/cu.usbserial-0001", baud=115200):
         self.ser = serial.Serial(port, baud, timeout=1)
 
     def send(self, command):

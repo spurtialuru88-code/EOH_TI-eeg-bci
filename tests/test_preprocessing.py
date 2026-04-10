@@ -1,5 +1,5 @@
 import numpy as np
-from tests.utils_eeg import generate_eeg_signal
+from EOH_BCI.eoh_bci.utils.utils_eeg import generate_eeg_signal
 from preprocessing import bandpass_filter, notch_filter
 
 def test_bandpass_preserves_signal_length():

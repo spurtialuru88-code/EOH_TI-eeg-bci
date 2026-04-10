@@ -3,7 +3,7 @@ import numpy as np
 from preprocessing import bandpass_filter
 from features import extract_features
 from classifier import train_model
-from tests.utils_eeg import generate_dataset
+from EOH_BCI.eoh_bci.utils.utils_eeg import generate_dataset
 from preprocessing import bandpass_filter, notch_filter
 from features import extract_features
 from classifier import train_model, predict
@@ -25,7 +25,7 @@ def test_full_bci_pipeline():
     # sanity check: predictions are binary
     assert set(preds).issubset({0, 1})
 
-from tests.utils_eeg import generate_dataset
+from EOH_BCI.eoh_bci.utils.utils_eeg import generate_dataset
 from preprocessing import bandpass_filter
 from features import extract_features
 from classifier import train_model

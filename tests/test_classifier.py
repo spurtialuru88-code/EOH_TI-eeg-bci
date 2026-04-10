@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.metrics import accuracy_score, confusion_matrix
 from preprocessing import bandpass_filter
-from tests.utils_eeg import generate_dataset
+from EOH_BCI.eoh_bci.utils.utils_eeg import generate_dataset
 from classifier import train_model, predict
 from features import extract_features
 
@@ -36,7 +36,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score, confusion_matrix
 
 from classifier import train_model
-from tests.utils_eeg import generate_dataset
+from EOH_BCI.eoh_bci.utils.utils_eeg import generate_dataset
 
 def test_classifier_accuracy_threshold():
     X_raw, y = generate_dataset()
