@@ -1,50 +1,25 @@
+from eoh_bci.streaming.txt_reader import stream_values
+from eoh_bci.decision.threshold import decide_action
+from eoh_bci.io.serial_control import SerialController
 import time
 
-from eoh_bci.io.signal_reader import SignalReader
-from eoh_bci.decision.threshold import ThresholdClassifier
-from eoh_bci.hardware.serial_bridge import SerialBridge
-from eoh_bci.ui.live_plot import LivePlot
-from eoh_bci.utils.calibration import calibrate
+FILE_PATH = "signals.txt"
 
 
 def run():
-    reader = SignalReader("signals.txt")
+    serial_ctrl = SerialController()
 
-    # AUTO CALIBRATION
-    rest, flex = calibrate(reader)
+    print("🚀 Real-time EEG → Hand control started")
 
-    classifier = ThresholdClassifier(
-        rest=rest,
-        flex=flex,
-        dead_zone=0.05
-    )
+    for value in stream_values(FILE_PATH):
+        action = decide_action(value)
 
-    bridge = SerialBridge(port="/dev/ttyUSB0")  # CHANGE THIS
-    plot = LivePlot()
+        print(f"Signal: {value:.3f} → Action: {action}")
 
-    last_cmd = None
+        if action:
+            serial_ctrl.send(action)
 
-    print("\n=== RUNNING REAL-TIME BCI ===\n")
-
-    while True:
-        value = reader.read_latest()
-
-        cmd = classifier.predict(value)
-
-        # TERMINAL UI
-        if value is not None:
-            print(f"Signal: {value:.3f} → {cmd}")
-
-       # SEND ONLY IF CHANGE
-        if cmd and cmd != last_cmd:
-            bridge.send(cmd)
-            print(f"→ SENT: {cmd}")
-            last_cmd = cmd
-
-        # LIVE GRAPH
-        plot.update(value)
-
-        time.sleep(0.02)  # ~50Hz loop
+        time.sleep(0.01)
 
 
 if __name__ == "__main__":

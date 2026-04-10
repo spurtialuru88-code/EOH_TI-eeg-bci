@@ -14,3 +14,12 @@ class ArduinoController:
 
     def close_hand(self):
         self.send_command("CLOSE")
+
+
+class SerialController:
+    def __init__(self, port="/dev/tty.usbserial-0001", baud=115200):
+        self.ser = serial.Serial(port, baud, timeout=1)
+
+    def send(self, command):
+        if command:
+            self.ser.write(command.encode())

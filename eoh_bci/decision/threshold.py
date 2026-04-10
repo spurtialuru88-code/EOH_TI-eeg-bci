@@ -19,3 +19,15 @@ class ThresholdClassifier:
             return 'F'
 
         return None
+
+    def decide_action(value, low=0.4, high=0.6):
+        """
+        Maps EEG value → action
+        """
+
+        if value > high:
+            return "F"   # FLEX
+        elif value < low:
+            return "R"   # REST
+        else:
+            return None  # DEAD ZONE
